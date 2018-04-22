@@ -8,25 +8,37 @@
 		<?php 
 
 		    $user = $_POST['username'];
-			$pass = $_POST['password'];
+			$text = $_POST['text'];
+			$perm = $_POST['permissions'];
 
-			$str = "Hello " . $user . ", your files have been secured successfully";
+			// $myfile = fopen("testfile.txt", "w");
+			$str = "Hello " . $user . ", your file was altered successfully";
 
-		    $conn = new mysqli($servername, $username, $password, $dbname);
+			function changeFilePerm($fileName, $content, $chCode){
 
-		    if ($conn -> connect_error) {
-		        die("Connection failed: " . $conn -> connect_error);
-		    }
+			    // $fp = fopen($fileName, 'w');
+			    // fwrite($fp, $content);
+			    // fclose($fp);
 
-			if ($user === "Ant") && ($pass === "lotuswy8964") && () {
-			    echo $str;
-			    chmod("test.txt",0600);
-			    echo $_POST["result"]
-			} else {
-			    echo "Error";
+			    // Set perms with chmod()
+			    $mod = chmod($fileName, 0 . $chCode);
+
+			    if ($mod == true){
+			    	return true;
+			    } else {
+			    	return false;
+			    }
+
 			}
 
-			mysqli_close($conn);
+			$write = changeFilePerm("testfile.txt", $text, $perm);
+
+			if ($write == true) {
+				echo $str;
+			} else {
+				echo "Process Failed";
+			}
+			
 
 		?>
 	</body>
